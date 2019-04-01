@@ -1,7 +1,7 @@
 $ = jQuery = require('jQuery');
 var React = require('react');
 var Home = require('./components/homePage');
-var About = require('./components/about/aboutPage');
+var About = require('./components/aboutPage');
 var Header = require('./components/common/header');
 
 (function(win){
