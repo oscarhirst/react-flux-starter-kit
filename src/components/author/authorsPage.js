@@ -1,6 +1,7 @@
 "use strict";
 
 var React = require('react');
+var Link = require('react-router').Link;
 var AuthorApi = require('../../api/authorApi');
 var AuthorList = require('./authorList');
 
@@ -13,7 +14,7 @@ var AuthorsPage = React.createClass({
     },
 
     componentDidMount: function() {
-        if (this.isMounted()){
+        if (this.isMounted()) {
             this.setState({ authors: AuthorApi.getAllAuthors() });
         }
     },
@@ -23,6 +24,7 @@ var AuthorsPage = React.createClass({
         return (
             <div>
                 <h1>Authors</h1>
+                <Link to="addAuthor" className="btn btn-defualt">Add Author</Link>
                 <AuthorList authors={someAuthors}/>
             </div>
         );
