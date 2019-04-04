@@ -11,6 +11,15 @@ var ManageAuthorPage = React.createClass({
         Router.Navigation
     ],
 
+    statics: {
+        willTransitionFrom: function(transition, component) {
+            if (component.state.unsaved && !confirm('Leave without saving?')) {
+                // don't move to the new page
+                transition.abort();
+            }
+        }
+    },
+
     getInitialState: function() {
         return {
             author: {
@@ -18,11 +27,14 @@ var ManageAuthorPage = React.createClass({
                 firstName: '',
                 lastName: ''
             },
-            errors: {}
+            errors: {},
+            unsaved: false
         };
     },
 
     setAuthorState: function(event) {
+        this.setState({unsaved: true});
+
         var field = event.target.name;
         var value = event.target.value;
 
@@ -56,6 +68,7 @@ var ManageAuthorPage = React.createClass({
         }
 
         AuthorApi.saveAuthor(this.state.author);
+        this.setState({unsaved: false});
         toastr.success('Author saved.');
         this.transitionTo('authors');
     },
